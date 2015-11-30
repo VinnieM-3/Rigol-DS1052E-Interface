@@ -1,7 +1,5 @@
 # Rigol-DS1052E-Python
 
-Project is [here](http://vinniem-3.github.io/Rigol-DS1052E-Python)
-
 <pre>
 This is a simple python program (using matplotlib and numpy)
 for connecting to a Rigol DS1052E digital oscilloscope
