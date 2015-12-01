@@ -1,6 +1,6 @@
 # Rigol-DS1052E-Python
 
-The Github Project page is [here](http://vinniem-3.github.io/Rigol-DS1052E-Interface/)
+The GitHub Project page is [here](http://vinniem-3.github.io/Rigol-DS1052E-Interface/)
 
 <pre>
 This is a simple python program (using matplotlib and numpy) for connecting to a Rigol DS1052E digital oscilloscope
