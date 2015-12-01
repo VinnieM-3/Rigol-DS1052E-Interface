@@ -4,11 +4,11 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Rigol-DS1052E-Python Interface : Python program used to graph data from a Rigol DS1052E oscilloscope on a linux computer.">
+    <meta name="description" content="Rigol DS1052E Oscilloscope Python Interface : Python program used to graph data from a Rigol DS1052E oscilloscope on a linux computer.">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Rigol-DS1052E-Python Interface</title>
+    <title>Rigol DS1052E Oscilloscope Python Interface</title>
   </head>
 
   <body>
@@ -18,7 +18,7 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/VinnieM-3/Rigol-DS1052E-Interface">View on GitHub</a>
 
-          <h1 id="project_title">Rigol-DS1052E-Python Interface</h1>
+          <h1 id="project_title">Rigol DS1052E Oscilloscope Python Interface</h1>
           <h2 id="project_tagline">Python program used to graph data from a Rigol DS1052E oscilloscope on a linux computer.</h2>
 
             <section id="downloads">
@@ -31,14 +31,56 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <p><img src="https://raw.githubusercontent.com/VinnieM-3/Rigol-DS1052E-Interface/master/common/images/one_channel.png" alt="Channel One"></p>
+        <pre>
+This is a simple python program (using matplotlib and numpy)
+for connecting to a Rigol DS1052E digital oscilloscope
+and retrieving the data for display on a linux computer.
+Thanks to matplotlib, you can scale the data vertically
+and horizontally and save images in various formats
+such as jpeg and png.
+</pre>
+
+<p><img src="https://raw.githubusercontent.com/VinnieM-3/Rigol-DS1052E-Interface/master/common/images/two_channel.png" alt="Two Channel Display"></p>
+
+<p><img src="https://raw.githubusercontent.com/VinnieM-3/Rigol-DS1052E-Interface/master/common/images/printerfriendly.png" alt="Printer Friendly Display"></p>
+
+<p>
+Requirements:
+Python 2.7.x or 3.5.x (Anaconda was used to create the test environments)
+matplotlib 1.5 or later
+numpy
+usbtmc drivers</p>
+
+<p>Installation Instructions
+1. Install python, matplotlib, and numpy.
+You might want to consider something like Anaconda to simplify this process.</p>
+
+<ol>
+<li><p>Install usbtmc but many newer distros already have it pre-installed.</p></li>
+<li><p>You may need to create a /etc/udev/rules.d/usbtmc.rules file containing the following:
+    # USBTMC instruments
+    # Rigol DS1052E
+    SUBSYSTEMS=="usb", ACTION=="add", ATTRS{idVendor}=="1ab1", ATTRS{idProduct}=="0588", GROUP="usbtmc", MODE="0660"
+After creating the file above, add your account to the usbtmc group, and logout and back in.</p></li>
+<li><p>You may need to start usbtmc the first time using "sudo modprobe usbtmc"</p></li>
+<li><p>Download rigolusb.py, scope.py, and scope_gui.py to a folder.</p></li>
+<li><p>Connect your DS1052E to your computer with a USB cord and run scope_gui.py and pass in the device path.
+For example:
+    python scope_gui.py -d /dev/usbtmc1
+    python scope_gui.py -d /dev/usbtmc1 -p             Note: -p displays a printfriendly black and white graph
+    python scope_gui.py -d /dev/usbtmc1 -s dots        Note: plots dots instead of lines
+    python scope_gui.py -d /dev/usbtmc1 -o mydata.dat  Note: Saves scope data to a file
+    python scope_gui.py -d /dev/usbtmc1 -i mydata.dat  Note: Opens scope data from a file
+    python scope_gui.py -d /dev/usbtmc1 -m NOR         Note: Only retrieves 600 data points instead of entire scope memory.
+</p></li>
+</ol>
       </section>
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Rigol-DS1052E-Python Interface maintained by <a href="https://github.com/VinnieM-3">VinnieM-3</a></p>
+        <p class="copyright">Rigol DS1052E Oscilloscope Python Interface maintained by <a href="https://github.com/VinnieM-3">VinnieM-3</a></p>
         <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
