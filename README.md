@@ -1,24 +1,20 @@
 # Rigol-DS1052E-Python
 
-[Project Page](http://vinniem-3.github.io/Rigol-DS1052E-Interface/)
+The Github Project page is [here](http://vinniem-3.github.io/Rigol-DS1052E-Interface/)
 
 <pre>
-This is a simple python program (using matplotlib and numpy)
-for connecting to a Rigol DS1052E digital oscilloscope
-and retrieving the data for display on a linux computer.
-Thanks to matplotlib, you can scale the data vertically
-and horizontally and save images in various formats
-such as jpeg and png.
+This is a simple python program (using matplotlib and numpy) for connecting to a Rigol DS1052E digital oscilloscope
+and retrieving the data for display on a linux computer. Thanks to matplotlib, you can scale the data vertically
+and horizontally and save images in various formats such as jpeg and png.
 
 Requirements:
-Python 2.7.x or 3.5.x (Anaconda was used to create the test environments)
+Python 2.7.x or 3.5.x
 matplotlib 1.5 or later
 numpy
 usbtmc drivers
 
 Installation Instructions
 1. Install python, matplotlib, and numpy.
-You might want to consider something like Anaconda to simplify this process.
 
 2. Install usbtmc but many newer distros already have it pre-installed.
 
