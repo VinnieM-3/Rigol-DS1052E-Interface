@@ -171,6 +171,7 @@ class Channel(object):
         self._vmax = 0.0
         self._vmin = 0.0
         self._vpp = 0.0
+        self._vamp = 0.0
         self._vrms = 0.0
         self._freq = 0.0
         self._duty_cycle = '***/***'
@@ -188,13 +189,14 @@ class Channel(object):
             self._vmax = rigolusb.get_vmax(_os_file, self._ch_num)
             self._vmin = rigolusb.get_vmin(_os_file, self._ch_num)
             self._vpp = rigolusb.get_vpp(_os_file, self._ch_num)
+            self._vamp = rigolusb.get_vamp(_os_file, self._ch_num)
             self._vrms = rigolusb.get_vrms(_os_file, self._ch_num)
             self._freq = rigolusb.get_freq(_os_file, self._ch_num)
             self._duty_cycle = rigolusb.get_duty_cycle(_os_file, self._ch_num)
             self._measures_string = ('Vmax=' + str(self._vmax) + 'V' + ',  ' +
                                      'Vmin=' + str(self._vmin) + 'V' + ',  ' +
                                      'Vrms=' + str(self._vrms) + 'V' + ',  ' +
-                                     'Vpp=' + str(self._vpp) + 'V' + ',  ' +
+                                     'Vamp=' + str(self._vamp) + 'V' + ',  ' +
                                      'Freq=' + str(self._freq) + 'Hz' + ',  ' +
                                      'Duty=' + str(self._duty_cycle) + '%')
             if self.num_points == 600:
@@ -219,6 +221,7 @@ class Channel(object):
             self._vmax = 0.0
             self._vmin = 0.0
             self._vpp = 0.0
+            self._vamp = 0.0
             self._vrms = 0.0
             self._freq = 0.0
             self._duty_cycle = '***/***'
@@ -261,6 +264,10 @@ class Channel(object):
     @property
     def vpp(self):
         return self._vpp
+
+    @property
+    def vamp(self):
+        return self._vamp
 
     @property
     def vrms(self):

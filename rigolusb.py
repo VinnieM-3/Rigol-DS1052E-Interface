@@ -130,6 +130,18 @@ def get_vpp(os_file, ch_num):
     return float(_send_command(os_file, ":MEAS:VPP? CHAN" + str(ch_num), 20))
 
 
+# Get the channel Vamp
+def get_vamp(os_file, ch_num):
+    vamp = float(_send_command(os_file, ":MEAS:VAMP? CHAN" + str(ch_num), 20))
+    try:
+        vamp = float(vamp)
+        if vamp > 1E9:  # assumed to be an error
+            raise ValueError
+    except ValueError:
+        vamp = '***'
+    return vamp
+
+
 # Get the channel Vrms
 def get_vrms(os_file, ch_num):
     return float(_send_command(os_file, ":MEAS:VRMS? CHAN" + str(ch_num), 20))
