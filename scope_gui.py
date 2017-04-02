@@ -25,6 +25,7 @@ import argparse
 from matplotlib import gridspec
 import scope
 import shelve
+from threading import Timer
 
 
 parser = argparse.ArgumentParser()
@@ -86,6 +87,7 @@ def draw_mem_map(ax, ch_ax):
     ax.plot(np.asarray([scp.time_axis[scope.SAMPLES][0],
             scp.time_axis[scope.SAMPLES][len(scp.time_axis[scope.SAMPLES])-1]]),
             np.asarray([1, 1]), lw=1, color='black')
+    ax.set_navigate(False)
     return ax.plot(np.asarray(ch_ax.get_xlim()), np.asarray([1, 1]), lw=3, marker='s', color='black')
 
 
@@ -98,7 +100,7 @@ def draw_ch(ch, ch_ax, num, x_min, x_max, ax_color, fig_bg_color, grid_color):
     if ch.state and ch.num_points == 600:
         ch_ax.text(0.01, 0.01, ch.meas_string, ha="left", va="bottom", size='small',
                    transform=ch_ax.transAxes, color=ax_color)
-    ch_ax.set_axis_bgcolor(fig_bg_color)
+    ch_ax.set_facecolor(fig_bg_color)
     if graph_style == 'lines':
         ch_ax.plot(scp.time_axis[scope.SAMPLES], ch.volt_points, color=ax_color)
     elif graph_style == 'dots':
@@ -110,7 +112,7 @@ def draw_ch(ch, ch_ax, num, x_min, x_max, ax_color, fig_bg_color, grid_color):
 
 
 # Updates Waveform Memory Map
-def on_draw(event):
+def redraw_mem_map():
     if scp.num_active_channels > 0:
         map_x_raw = mem_ax_lines[0].get_xdata()
         ch_x_raw = ch_ax_ref.get_xlim()
@@ -120,7 +122,12 @@ def on_draw(event):
             mem_ax_lines[0].set_xdata(np.asarray(ch_ax_ref.get_xlim()))
             gs.tight_layout(fig, rect=[0.01, 0, 1, 0.95])
             plt.draw()
-fig.canvas.mpl_connect('draw_event', on_draw)
+
+
+# hack: lets channels repaint before redrawing mem map
+def mem_map_timer(event):
+    Timer(0, redraw_mem_map).start()
+fig.canvas.mpl_connect('draw_event', mem_map_timer)
 
 
 # Maximizes plots in figure canvas.
@@ -148,12 +155,13 @@ if scp.points_per_channel == 600:  # zoom out to all points
 else:
     x_mid = round(len(scp.time_axis[scope.SAMPLES])/2)
     total_points_displayed = (scp.time_per_division * 12) * scp.samplerate_per_channel
-    x_min = x_mid - round(total_points_displayed/2)
-    x_max = x_mid + round(total_points_displayed/2)
+    x_min = int(x_mid - round(total_points_displayed/2))
+    x_max = int(x_mid + round(total_points_displayed/2))
     if x_min < 0:
         x_min = 0
     if x_max > (len(scp.time_axis[scope.SAMPLES])-1):
-        x_max = len(scp.time_axis[scope.SAMPLES])-1
+        x_max = int(len(scp.time_axis[scope.SAMPLES])-1)
+
 
 # Time to start ploting channel data
 if scp.num_active_channels > 0:
