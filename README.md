@@ -6,7 +6,7 @@ oscilloscope and retrieving the data for display on a linux computer. Thanks to 
 the data vertically and horizontally and save images in various formats such as jpeg and png.
 </pre>
 
-![screenshot](images/two_channel.png)
+![screenshot](/common/images/two_channel.png)
 
 <pre>
 Requirements:
